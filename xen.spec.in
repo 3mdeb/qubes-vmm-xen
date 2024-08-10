@@ -94,7 +94,6 @@ Patch0203: 0203-Add-xen.cfg-options-for-mapbs-and-noexitboot.patch
 Patch0204: 0204-xen.efi.build.patch
 
 # Backports
-Patch0300: 0300-Relocate-the-ESRT-when-booting-via-multiboot2.patch
 Patch0301: 0301-x86-mm-shadow-avoid-assuming-a-specific-Xen-PAT.patch
 Patch0302: 0302-x86-mm-shadow-do-not-open-code-PAGE_CACHE_ATTRS.patch
 Patch0303: 0303-p2m-pt-Avoid-hard-coding-Xen-s-PAT.patch
@@ -104,13 +103,15 @@ Patch0306: 0306-x86-Replace-PAT_-with-X86_MT_.patch
 Patch0307: 0307-x86-Replace-MTRR_-constants-with-X86_MT_-constants.patch
 Patch0308: 0308-x86-Replace-EPT_EMT_-constants-with-X86_MT_.patch
 Patch0309: 0309-x86-Derive-XEN_MSR_PAT-from-its-individual-entries.patch
-Patch0310: 0310-x86-time-prevent-overflow-with-high-frequency-TSCs.patch
-Patch0311: 0311-x86-cpuid-Infrastructure-for-leaves-7-1-ecx-edx.patch
-Patch0312: 0312-x86-shskt-Disable-CET-SS-on-parts-succeptable-to-fra.patch
-Patch0313: 0313-x86-spec-ctrl-Mitigate-Cross-Thread-Return-Address-P.patch
+Patch0314: 0314-drivers-char-support-up-to-1M-BAR0-of-xhci.patch
+Patch0315: 0315-IOMMU-store-name-for-extra-reserved-device-memory.patch
+Patch0316: 0316-drivers-char-mark-extra-reserved-device-memory-in-me.patch
+Patch0317: 0317-xen-list-add-LIST_HEAD_RO_AFTER_INIT.patch
+Patch0318: 0318-x86-mm-add-API-for-marking-only-part-of-a-MMIO-page-.patch
+Patch0319: 0319-drivers-char-Use-sub-page-ro-API-to-make-just-xhci-d.patch
 
 # Security fixes
-Patch0500: 0500-x86-Activate-Data-Operand-Invariant-Timing-Mode-by-d.patch
+Patch0500: 0500-xsa458.patch
 
 # Upstreamable patches
 Patch0604: 0604-libxl-create-writable-error-xenstore-dir.patch
@@ -138,7 +139,6 @@ Patch0625: 0625-libxl-Allow-stubdomain-to-control-interupts-of-PCI-d.patch
 Patch0626: 0626-Validate-EFI-memory-descriptors.patch
 Patch0627: 0627-x86-mm-Avoid-hard-coding-PAT-in-get_page_from_l1e.patch
 Patch0628: 0628-x86-mm-make-code-robust-to-future-PAT-changes.patch
-Patch0629: 0629-tools-python-change-s-size-type-for-Python-3.10.patch
 Patch0630: 0630-Drop-ELF-notes-from-non-EFI-binary-too.patch
 
 # Intel HWP support
@@ -155,6 +155,19 @@ Patch0640: 0640-libxc-Add-xc_set_cpufreq_hwp.patch
 Patch0641: 0641-xenpm-Factor-out-a-non-fatal-cpuid_parse-variant.patch
 Patch0642: 0642-xenpm-Add-set-cpufreq-hwp-subcommand.patch
 Patch0643: 0643-cpufreq-enable-HWP-by-default.patch
+
+PAtch0651: 0651-x86-msi-passthrough-all-MSI-X-vector-ctrl-writes-to-.patch
+PAtch0652: 0652-x86-hvm-Allow-writes-to-registers-on-the-same-page-a.patch
+
+Patch0653: 0653-python-avoid-conflicting-_FORTIFY_SOURCE-values.patch
+
+# S0ix support
+Patch0670: 0670-x86-hpet-Disable-legacy-replacement-mode-after-test-.patch
+Patch0671: 0671-x86-idle-Get-PC-8.10-counters-for-Tiger-and-Alder-La.patch
+Patch0672: 0672-x86-ACPI-Ignore-entries-marked-as-unusable-when-pars.patch
+Patch0673: 0673-x86-msr-Allow-hardware-domain-to-read-C-state-reside.patch
+Patch0674: 0674-x86-mwait-idle-Use-ACPI-for-CPUs-without-hardcoded-C.patch
+Patch0675: 0675-libxl_pci-Pass-power_mgmt-via-QMP.patch
 
 # Qubes specific patches
 Patch1000: 1000-Do-not-access-network-during-the-build.patch
@@ -174,10 +187,8 @@ Patch1013: 1013-libxl-do-not-force-qdisk-backend-for-cdrom.patch
 Patch1014: 1014-Additional-support-in-ACPI-builder-to-support-SLIC-a.patch
 Patch1015: 1015-libxl-conditionally-allow-PCI-passthrough-on-PV-with.patch
 Patch1016: 1016-gnttab-disable-grant-tables-v2-by-default.patch
-Patch1017: 1017-Disable-TSX-by-default.patch
 Patch1018: 1018-Fix-IGD-passthrough-with-linux-stubdomain.patch
 Patch1019: 1019-Use-Linux-s-PAT.patch
-Patch1020: 1020-xen-tell-guests-what-speculative-workarounds-are-not.patch
 
 # Reproducible builds
 Patch1100: 1100-Define-build-dates-time-based-on-SOURCE_DATE_EPOCH.patch
@@ -189,6 +200,37 @@ Patch1103: 1103-Strip-build-path-directories-in-tools-xen-and-xen-ar.patch
 Patch1200: 1200-hypercall-XENMEM_get_mfn_from_pfn.patch
 Patch1201: 1201-patch-gvt-hvmloader.patch.patch
 Patch1202: 1202-libxl-Add-partially-Intel-GVT-g-support-xengt-device.patch
+
+# Secure Launch support patches
+Patch1300: 1300-x86-include-asm-intel_txt.h-constants-and-accessors-.patch
+Patch1301: 1301-x86-boot-add-MLE-header-and-new-entry-point.patch
+Patch1302: 1302-x86-boot-txt_early-add-early-TXT-tests-and-restore-M.patch
+Patch1303: 1303-include-xen-slr_table.h-Secure-Launch-Resource-Table.patch
+Patch1304: 1304-xen-arch-x86-reserve-TXT-memory.patch
+Patch1305: 1305-x86-intel_txt.c-restore-boot-MTRRs.patch
+Patch1306: 1306-lib-sha1.c-add-file.patch
+Patch1307: 1307-x86-tpm.c-code-for-early-hashing-and-extending-PCRs-.patch
+Patch1308: 1308-x86-boot-choose-AP-stack-based-on-APIC-ID.patch
+Patch1309: 1309-x86-smpboot.c-TXT-AP-bringup.patch
+Patch1310: 1310-arch-x86-don-t-access-x86_cpu_to_apicid-directly-use.patch
+Patch1311: 1311-arch-x86-smp-drop-x86_cpu_to_apicid-use-cpu_data-cpu.patch
+Patch1312: 1312-arch-x86-smp-move-stack_base-to-cpu_data.patch
+Patch1313: 1313-arch-x86-smp-call-x2apic_ap_setup-earlier.patch
+Patch1314: 1314-arch-x86-shutdown-protect-against-recurrent-machine_.patch
+Patch1315: 1315-arch-x86-smp-drop-booting_cpu-variable.patch
+Patch1316: 1316-arch-x86-smp-make-cpu_state-per-CPU.patch
+Patch1317: 1317-arch-x86-smp-remove-MONITOR-MWAIT-loop-for-TXT-AP-br.patch
+Patch1318: 1318-arch-x86-smp-don-t-send-INIT-SIPI-SIPI-if-AP-is-alre.patch
+Patch1319: 1319-arch-x86-smp-start-APs-in-parallel-during-boot.patch
+Patch1320: 1320-lib-sha256.c-add-file.patch
+Patch1321: 1321-x86-tpm.c-support-extending-PCRs-of-TPM2.0.patch
+Patch1322: 1322-x86-tpm.c-implement-event-log-for-TPM2.0.patch
+Patch1323: 1323-arch-x86-process-DRTM-policy.patch
+Patch1324: 1324-arch-x86-extract-slaunch-unit.patch
+Patch1325: 1325-x86-boot-introduce-slaunch_slrt-global-variable.patch
+Patch1326: 1326-x86-boot-find-MBI-and-SLRT-on-AMD.patch
+Patch1327: 1327-arch-x86-move-generic-memory-mapping-and-protection-.patch
+Patch1328: 1328-arch-x86-support-slaunch-with-AMD-SKINIT.patch
 
 %if %build_qemutrad
 BuildRequires: libidn-devel zlib-devel SDL-devel curl-devel
@@ -202,19 +244,12 @@ BuildRequires: dev86
 %endif
 BuildRequires: python%{python3_pkgversion}-devel ncurses-devel python%{python3_pkgversion}-setuptools
 BuildRequires: perl-interpreter perl-generators
-%ifarch %{ix86} x86_64
-# so that x86_64 builds pick up glibc32 correctly
-BuildRequires: /usr/include/gnu/stubs-32.h
-%endif
 # BEGIN QUBES SPECIFIC PART
 BuildRequires: autoconf
 BuildRequires: automake
 # END QUBES SPECIFIC PART
 BuildRequires: gettext
-BuildRequires: gnutls-devel
-BuildRequires: openssl-devel
-# For ioemu PCI passthrough
-BuildRequires: pciutils-devel
+BuildRequires: zlib-devel
 # Several tools now use uuid
 BuildRequires: libuuid-devel
 # iasl needed to build hvmloader
@@ -397,17 +432,6 @@ This package contains libraries for developing ocaml tools to
 manage Xen virtual machines.
 %endif
 
-# BEGIN QUBES SPECIFIC PART
-%package qubes-vm
-Summary: Xen files required in Qubes VM
-Requires: xen-libs = %{epoch}:%{version}-%{release}
-Conflicts: xen
-Provides: xen-qubes-vm-essentials = %{epoch}:%{version}-%{release}
-
-%description qubes-vm
-Just a few xenstore-* tools and Xen hotplug scripts needed by Qubes VMs
-# END QUBES SPECIFIC PART
-
 %prep
 %autosetup -p1 -n %{name}-%{upstream_version}
 
@@ -465,6 +489,8 @@ export LDFLAGS="$LDFLAGS_SAVE"
 export CFLAGS="$CFLAGS_SAVE -Wno-error=address"
 
 %if %build_hyp
+# QUBES SPECIFIC LINE
+export CFLAGS=`echo $CFLAGS | sed -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//g'`
 %if %build_crosshyp
 export CFLAGS=`echo $CFLAGS | sed -e 's/-m32//g' -e 's/-march=i686//g' 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//g'`
 XEN_TARGET_ARCH=x86_64 %make_build %{?efi_flags} prefix=/usr xen CC="/usr/bin/x86_64-linux-gnu-gcc"
@@ -728,19 +754,10 @@ if [ ! -e /usr/lib/xen ]; then
   ln -s /usr/libexec/xen /usr/lib/xen
 fi
 
-%ldconfig_scriptlets libs
-
-# BEGIN QUBES SPECIFIC PART
-%post qubes-vm
-# Unconditionally enable this service in Qubes VM
-systemctl enable xendriverdomain.service >/dev/null 2>&1 || :
-
-%preun qubes-vm
-%systemd_preun xendriverdomain.service
-
+# QUBES SPECIFIC PART: next 2 lines (do not put comment before next section)
 %post libs -p /sbin/ldconfig
 %postun libs -p /sbin/ldconfig
-# END QUBES SPECIFIC PART
+
 %if %build_hyp
 %post hypervisor
 %if %build_efi
@@ -840,11 +857,11 @@ fi
 
 # BEGIN QUBES SPECIFIC PART
 # Guest autostart links
-#%dir %attr(0700,root,root) %{_sysconfdir}/%{name}/auto
+#%dir %attr(0700,root,root) %%{_sysconfdir}/%%{name}/auto
 # Autostart of guests
-#%config(noreplace) %{_sysconfdir}/sysconfig/xendomains
+#%config(noreplace) %%{_sysconfdir}/sysconfig/xendomains
 
-#%{_unitdir}/xendomains.service
+#%%{_unitdir}/xendomains.service
 # END QUBES SPECIFIC PART
 
 %files libs
@@ -890,8 +907,8 @@ fi
 %{_unitdir}/xenconsoled.service
 %{_unitdir}/xen-watchdog.service
 # BEGIN QUBES SPECIFIC PART
-#%{_unitdir}/xen-qemu-dom0-disk-backend.service
-#%{_unitdir}/xendriverdomain.service
+# %%{_unitdir}/xen-qemu-dom0-disk-backend.service
+# %%{_unitdir}/xendriverdomain.service
 %{_unitdir}/xen-init-dom0.service
 %exclude %{_unitdir}/xendriverdomain.service
 # END QUBES SPECIFIC PART
@@ -944,7 +961,7 @@ fi
 %{python3_sitearch}/xenfsimage*.so
 %{python3_sitearch}/grub
 # BEGIN QUBES SPECIFIC PART
-# %{python3_sitearch}/pygrub-*.egg-info
+# %%{python3_sitearch}/pygrub-*.egg-info
 # END QUBES SPECIFIC PART
 
 # The firmware
@@ -979,18 +996,18 @@ fi
 
 # All xenstore CLI tools
 # BEGIN QUBES SPECIFIC PART
-# %{_bindir}/qemu-*-xen
+# %%{_bindir}/qemu-*-xen
 # END QUBES SPECIFIC PART
 %{_bindir}/xenstore
 %{_bindir}/xenstore-*
 # BEGIN QUBES SPECIFIC PART
-#%{_bindir}/pygrub
+# %%{_bindir}/pygrub
 # END QUBES SPECIFIC PART
 %{_bindir}/xentrace*
-#%#{_bindir}/remus
+# %%#{_bindir}/remus
 # XSM
 # BEGIN QUBES SPECIFIC PART
-#%{_sbindir}/flask-*
+# %%{_sbindir}/flask-*
 # END QUBES SPECIFIC PART
 # Misc stuff
 %ifnarch armv7hl aarch64
@@ -1109,32 +1126,6 @@ fi
 %{_libdir}/ocaml/xen*/*.cmxa
 %{_libdir}/ocaml/xen*/*.cmx
 %endif
-
-# BEGIN QUBES SPECIFIC PART
-%files qubes-vm
-%{_bindir}/xenstore
-%{_bindir}/xenstore-*
-%{_sbindir}/xl
-%{_unitdir}/xendriverdomain.service
-%config(noreplace) %{_sysconfdir}/xen/xl.conf
-
-%dir %attr(0700,root,root) %{_sysconfdir}/xen
-%dir %attr(0700,root,root) %{_sysconfdir}/xen/scripts/
-%config %attr(0700,root,root) %{_sysconfdir}/xen/scripts/*
-
-# General Xen state
-%dir %{_localstatedir}/lib/xen
-%dir %{_localstatedir}/lib/xen/dump
-
-# Xen logfiles
-%dir %attr(0700,root,root) %{_localstatedir}/log/xen
-
-# Python modules
-%dir %{python3_sitearch}/xen
-%{python3_sitearch}/xen/__init__.*
-%{python3_sitearch}/xen/lowlevel
-%{python3_sitearch}/xen-*.egg-info
-# END QUBES SPECIFIC PART
 
 %changelog
 @CHANGELOG@
